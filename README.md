@@ -8,10 +8,10 @@ Backend for DevDesk Queue
 https://devdesk-queue.herokuapp.com
 
 
-# back-end
 
 
-## User Database Endpoints 
+
+### User Database Endpoints 
 
  [POST] `/api/auth/register` 
 
@@ -19,10 +19,10 @@ https://devdesk-queue.herokuapp.com
 
 ```js 
 {
-	    "email": "test2@gmail.com",
-        "username": "jean",
-        "password": "pass",
-        "role": "student"
+	  "email": "test2@gmail.com",
+    "username": "jay",
+    "password": "pass",
+    "role": "student"
 }
 ```
 
