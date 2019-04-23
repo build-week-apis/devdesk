@@ -2,8 +2,10 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const secret = require('../config/secrets.js')
+const secret = require('../config/secrets.js');
 const Users = require('../users/users-model.js');
+
+const restricted = require('./restricted-middleware');
 
 // for endpoints beginning with /api/auth
 router.post('/register', (req, res) => {
@@ -40,6 +42,7 @@ router.post('/login', (req, res) => {
       res.status(500).json(error);
     });
 });
+
 
 function generateToken(user) {
   const payload = {
