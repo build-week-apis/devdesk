@@ -17,7 +17,7 @@ https://devdesk-queue.herokuapp.com
 
  **Payload:** Expects an object with a username, password and email 
 
-```js 
+```js
 {
 	  "email": "test2@gmail.com",
     "username": "jay",
@@ -26,10 +26,38 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
-| `POST /api/auth/login` | Expects an object with a username and password, returns a security token |
-| `GET /api/users` | Returns a list of all registered users | 
-| Tickets Database Endpoints |
-| `POST /api/auth/tickets` | Expects an object with a status, title, description & student_id (Optional: tried and helper_id) |
-| `GET /api/auth/tickets` | Returns a list of all posted help tickets | 
+[POST] `/api/auth/login`
+
+**Payload** Expects an object with a username and password, **Returns** a security token
+
+```js 
+{
+    "username": "jay",
+    "password": "pass"
+}
+```
+
+[GET] `/api/users`
+
+**Returns** a list of all registered users  
+
+### Tickets Database Endpoints 
+
+[POST] `/api/auth/tickets` 
+
+**Payload** Expects an object with a status, title, description & student_id (Optional: tried and helper_id) 
+
+```js 
+{
+	"status": "test status",
+	"title": "test title",
+	"description": "test description",
+	"student_id": "1"
+}
+```
+
+ [GET] `/api/auth/tickets`  
+ 
+ **Returns** a list of all posted help tickets 
 
 
