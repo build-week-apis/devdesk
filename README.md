@@ -13,7 +13,9 @@ https://devdesk-queue.herokuapp.com
 
 ### User Database Endpoints 
 
- [POST] `/api/auth/register` 
+ ### [POST] Register
+ 
+ `/api/auth/register` 
 
  **Payload:** Expects an object with a username, password and email 
 
@@ -26,7 +28,9 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
-[POST] `/api/auth/login`
+### [POST] Login
+
+`/api/auth/login`
 
 **Payload** Expects an object with a username and password, **Returns** a security token
 
@@ -37,13 +41,17 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
-[GET] `/api/users`
+### [GET] Users
+
+`/api/users`
 
 **Returns** a list of all registered users  
 
 ### Tickets Database Endpoints 
 
-[POST] `/api/tickets` 
+### [POST] Tickets
+
+`/api/tickets` 
 
 **Payload** Expects an object with a status, title, description & student_id (Optional: tried and helper_id) 
 
@@ -56,7 +64,9 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
- [GET] `/api/tickets`  
+ ### [GET] Tickets
+ 
+ `/api/tickets`  
  
  **Returns** a list of all posted help tickets 
 
