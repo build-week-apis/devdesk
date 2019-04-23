@@ -19,8 +19,12 @@ exports.up = knex => knex.schema
     table.foreign('helper_id').references('users.id');
     table.timestamps(true, true);
   })
+  .createTable('categories', table => {
+    table.increments();
+    table.string('name', 128).notNullable().unique();
+  })
   
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('users').dropTableIfExists('tickets');
+  return knex.schema.dropTableIfExists('users').dropTableIfExists('tickets').dropTableIfExists('categories');
 };
