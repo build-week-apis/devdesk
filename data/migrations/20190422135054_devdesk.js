@@ -7,8 +7,20 @@ exports.up = knex => knex.schema
     table.string('role', 50).defaultTo('student');
     table.timestamps(true, true);
   })
+  .createTable('tickets', table => {
+    table.increments();
+    table.string('status', 128).notNullable();
+    table.string('title', 256).notNullable();
+    table.text('description').notNullable();
+    table.text('tried');
+    table.integer('student_id').unsigned().notNullable();
+    table.foreign('student_id').references('users.id');
+    table.integer('helper_id').unsigned();
+    table.foreign('helper_id').references('users.id');
+    table.timestamps(true, true);
+  })
   
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('users');
+  return knex.schema.dropTableIfExists('users').dropTableIfExists('tickets');
 };

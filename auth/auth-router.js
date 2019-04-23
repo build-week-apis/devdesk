@@ -2,8 +2,10 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const secret = require('../config/secrets.js')
+const secret = require('../config/secrets.js');
 const Users = require('../users/users-model.js');
+const Tickets = require('../auth/tickets-model');
+const restricted = require('./restricted-middleware');
 
 // for endpoints beginning with /api/auth
 router.post('/register', (req, res) => {
@@ -39,6 +41,25 @@ router.post('/login', (req, res) => {
     .catch(error => {
       res.status(500).json(error);
     });
+});
+
+router.post("/tickets", (req, res) => {
+  console.log(req.body);
+    Tickets.add(req.body)
+      .then(newTicket => {
+        res.status(201).json(newTicket);
+      })
+      .catch(err => {
+        res.status(500).json({ error: "failed to add ticket" });
+      });
+});
+
+router.get('/tickets', restricted, (req, res) => {
+  Tickets.find()
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => res.send(err));
 });
 
 function generateToken(user) {
