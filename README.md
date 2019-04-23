@@ -43,7 +43,7 @@ https://devdesk-queue.herokuapp.com
 
 ### Tickets Database Endpoints 
 
-[POST] `/api/auth/tickets` 
+[POST] `/api/tickets` 
 
 **Payload** Expects an object with a status, title, description & student_id (Optional: tried and helper_id) 
 
@@ -56,7 +56,7 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
- [GET] `/api/auth/tickets`  
+ [GET] `/api/tickets`  
  
  **Returns** a list of all posted help tickets 
 
