@@ -10,21 +10,14 @@ https://devdesk-queue.herokuapp.com
 
 # back-end
 
-| Endpoint | Description | example |
+| Endpoint | Description | Example |
 | --- | --- |
-| User Database Endpoints |
-| `POST /api/auth/register` | Expects an object with a username, password and email | ```
-{
-	    "email": "test2@gmail.com",
-        "username": "jean",
-        "password": "pass",
-        "role": "student"
-}
-``` |
-| `POST /api/auth/login` | Expects an object with a username and password, returns a security token |
-| `GET /api/users` | Returns a list of all registered users |
+| User Database Endpoints | --- |
+| `POST /api/auth/register` | Expects an object with a username, password and email | --- |
+| `POST /api/auth/login` | Expects an object with a username and password, returns a security token |--- |
+| `GET /api/users` | Returns a list of all registered users | --- |
 | Tickets Database Endpoints |
-| `POST /api/auth/tickets` | Expects an object with a status, title, description & student_id (Optional: tried and helper_id) |
-| `GET /api/auth/tickets` | Returns a list of all posted help tickets |
+| `POST /api/auth/tickets` | Expects an object with a status, title, description & student_id (Optional: tried and helper_id) | --- |
+| `GET /api/auth/tickets` | Returns a list of all posted help tickets | --- |
 
 
