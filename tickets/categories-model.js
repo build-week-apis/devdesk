@@ -8,7 +8,7 @@ module.exports = {
 };
 
 function find() {
-  return db('categories').select('name');
+  return db('categories').select();
 }
 
 function findBy(filter) {

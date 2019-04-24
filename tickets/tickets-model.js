@@ -26,3 +26,4 @@ function findById(id) {
     .where({ id })
     .first();
 }
+

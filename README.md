@@ -71,3 +71,24 @@ https://devdesk-queue.herokuapp.com
  **Returns** a list of all posted help tickets 
 
 
+### [POST] Categories
+
+`/api/categories` 
+
+**Payload** Expects an object with a name
+
+```js 
+{
+  "name": "Javascript"
+}
+```
+
+ ### [GET] Categories
+ 
+ `/api/categories`  
+ 
+ **Returns** a list of all posted help tickets 
+
+## [PUT] Categories 
+
+`/api/categories/:id`
