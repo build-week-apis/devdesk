@@ -13,6 +13,17 @@ https://devdesk-queue.herokuapp.com
 
 ### User Database Endpoints 
 
+#### All endpoints require tokens in header. role requirements specified in each endpoint which requires a role.
+
+#### header example 
+
+ ```js 
+{
+  "Authorization": "token",
+  "role": "student" || "helper"
+}
+```
+
  ### [POST] Register
  
  `/api/auth/register` 
@@ -47,9 +58,22 @@ https://devdesk-queue.herokuapp.com
 
 **Returns** a list of all registered users  
 
+### [DELETE] Users
+
+`api/users/:id`
+
 ### Tickets Database Endpoints 
 
 ### [POST] Tickets
+
+#### header example 
+
+ ```js 
+{
+  "Authorization": "token",
+  "role": "student"
+}
+```
 
 `/api/tickets` 
 
@@ -67,9 +91,43 @@ https://devdesk-queue.herokuapp.com
 
  ### [GET] Tickets
  
- `/api/tickets`  
+ `/api/tickets/`  
  
  **Returns** a list of all posted help tickets 
+
+ ### [PUT] Tickets
+
+#### header example 
+
+ ```js 
+{
+  "Authorization": "token",
+  "role": "helper"
+}
+```
+
+`/api/tickets/:id`  
+
+**Payload** edit the status and helper_id, only open to helpers
+
+```js 
+{
+	"status": "complete"
+}
+```
+
+### [DELETE] Tickets
+
+#### header example 
+
+ ```js 
+{
+  "Authorization": "token",
+  "role": "helper"
+}
+```
+
+`/api/tickets/:id` 
 
 
 ### [POST] Categories
@@ -91,5 +149,10 @@ https://devdesk-queue.herokuapp.com
  **Returns** a list of all posted help tickets 
 
 ## [PUT] Categories 
+
+`/api/categories/:id`
+
+
+## [DELETE] Categories 
 
 `/api/categories/:id`

@@ -8,6 +8,8 @@ const Users = require("../users/users-model.js");
 const Tickets = require("./tickets-model");
 const restricted = require("../auth/restricted-middleware");
 
+const {helper, student} = require('../auth/permission');
+
 // router.post("/", restricted, (req, res) => {
 //   console.log(req.body);
 //   Tickets.add(req.body)
@@ -28,18 +30,19 @@ router.get("/", restricted, async (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.post("/", restricted, async (req, res) => {
+router.post("/", restricted, student, async (req, res) => {
   try {
     const cat = await db("categories").select("name").map(i =>  i.name);
 
     const tick = await Tickets.add(req.body);
 
     console.log(cat.filter(i => i === req.body.categories))
+    console.log(req.body.categories);
 
     res.status(200).json({
       ...tick,
       category: cat.filter(i => {
-        return i === req.body.categories
+        return i === req.body.categories.map(j => j)
       } )
     });
   } catch (error) {
@@ -56,7 +59,7 @@ router.get("/:id", restricted, async (req, res) => {
   }
 });
 
-router.put("/:id", restricted, async (req, res) => {
+router.put("/:id", restricted, helper, async (req, res) => {
   try {
     const count = await db("tickets")
       .where({ id: req.params.id })
@@ -74,7 +77,7 @@ router.put("/:id", restricted, async (req, res) => {
   } catch (error) {}
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', helper, async (req, res) => {
   try {
     const count = await db('tickets')
       .where({ id: req.params.id })
