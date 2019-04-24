@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const secret = require('../config/secrets.js');
 const Users = require('../users/users-model.js');
-
+const Role = require("./roles-model");
 const restricted = require('./restricted-middleware');
 
 // for endpoints beginning with /api/auth
@@ -41,6 +41,25 @@ router.post('/login', (req, res) => {
     .catch(error => {
       res.status(500).json(error);
     });
+});
+
+router.post("/roles", restricted, (req, res) => {
+  console.log(req.body);
+  Role.add(req.body)
+    .then(newRole => {
+      res.status(201).json(newRole);
+    })
+    .catch(err => {
+      res.status(500).json({ error: "failed to add ticket" });
+    });
+});
+
+router.get("/roles", restricted, (req, res) => {
+  Role.find()
+    .then(role => {
+      res.json(role);
+    })
+    .catch(err => res.send(err));
 });
 
 

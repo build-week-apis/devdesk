@@ -8,23 +8,43 @@ const Users = require("../users/users-model.js");
 const Tickets = require("./tickets-model");
 const restricted = require("../auth/restricted-middleware");
 
-router.post("/", restricted, (req, res) => {
-  console.log(req.body);
-  Tickets.add(req.body)
-    .then(newTicket => {
-      res.status(201).json(newTicket);
-    })
-    .catch(err => {
-      res.status(500).json({ error: "failed to add ticket" });
-    });
-});
+// router.post("/", restricted, (req, res) => {
+//   console.log(req.body);
+//   Tickets.add(req.body)
+//     .then(newTicket => {
+//       res.status(201).json(newTicket);
+//     })
+//     .catch(err => {
+//       res.status(500).json({ error: "failed to add ticket" });
+//     });
+// });
 
-router.get("/", restricted, (req, res) => {
+router.get("/", restricted, async (req, res) => {
+  const cat = await db("categories").select("name");
   Tickets.find()
     .then(users => {
       res.json(users);
     })
     .catch(err => res.send(err));
+});
+
+router.post("/", restricted, async (req, res) => {
+  try {
+    const cat = await db("categories").select("name").map(i =>  i.name);
+
+    const tick = await Tickets.add(req.body);
+
+    console.log(cat.filter(i => i === req.body.categories))
+
+    res.status(200).json({
+      ...tick,
+      category: cat.filter(i => {
+        return i === req.body.categories
+      } )
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 router.get("/:id", restricted, async (req, res) => {
@@ -50,6 +70,20 @@ router.put("/:id", restricted, async (req, res) => {
       res.status(200).json(ticket);
     } else {
       res.status(404).json({ message: "Records not found" });
+    }
+  } catch (error) {}
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const count = await db('tickets')
+      .where({ id: req.params.id })
+      .del();
+
+    if (count > 0) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: 'Records not found' });
     }
   } catch (error) {}
 });

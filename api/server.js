@@ -17,6 +17,7 @@ server.use('/api/users', usersRouter);
 server.use('/api/tickets', ticketsRouter);
 server.use('/api/categories', categoriesRouter);
 
+
 server.get('/', (req, res) => {
   res.send("It's alive!");
 });
