@@ -7,6 +7,7 @@ const usersRouter = require('../users/users-router.js');
 const ticketsRouter = require('../tickets/tickets-router.js');
 const categoriesRouter = require('../tickets/categories-router.js');
 const server = express();
+require('dotenv').config();
 
 server.use(helmet());
 server.use(express.json());
