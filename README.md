@@ -60,7 +60,8 @@ https://devdesk-queue.herokuapp.com
 	"status": "test status",
 	"title": "test title",
 	"description": "test description",
-	"student_id": "1"
+  "student_id": "1",
+  "categories": "javascript" // optional, & will only accept categories in the categories table
 }
 ```
 
