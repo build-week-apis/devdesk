@@ -40,7 +40,7 @@ router.put("/:id", restricted, async (req, res) => {
   try {
     const count = await db("categories")
       .where({ id: req.params.id })
-      .update(req.body.name);
+      .update(req.body);
       
 
     if (count > 0) {
