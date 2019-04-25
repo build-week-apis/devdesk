@@ -152,6 +152,12 @@ https://devdesk-queue.herokuapp.com
 
 `/api/categories/:id`
 
+```js 
+{
+  "name": "Javascript"
+}
+```
+
 
 ## [DELETE] Categories 
 
