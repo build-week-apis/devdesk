@@ -8,7 +8,7 @@ const Users = require("../users/users-model.js");
 const Tickets = require("./tickets-model");
 const restricted = require("../auth/restricted-middleware");
 
-const {helper, student} = require('../auth/permission');
+const { helper, student } = require("../auth/permission");
 
 // router.post("/", restricted, (req, res) => {
 //   console.log(req.body);
@@ -21,29 +21,30 @@ const {helper, student} = require('../auth/permission');
 //     });
 // });
 
-router.get("/", restricted, async (req, res) => {
-  const cat = await db("categories").select("name");
+router.get("/", (req, res) => {
   Tickets.find()
     .then(users => {
-      res.json(users);
+      res.status(200).json(users);
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).json(err));
 });
 
 router.post("/", restricted, student, async (req, res) => {
   try {
-    const cat = await db("categories").select("name").map(i =>  i.name);
+    const cat = await db("categories")
+      .select("name")
+      .map(i => i.name);
 
     const tick = await Tickets.add(req.body);
 
-    console.log(cat.filter(i => i === req.body.categories))
+    console.log(cat.filter(i => i === req.body.categories));
     console.log(req.body.categories);
 
     res.status(200).json({
       ...tick,
       category: cat.filter(i => {
-        return i === req.body.categories.map(j => j)
-      } )
+        return i === req.body.categories.map(j => j);
+      })
     });
   } catch (error) {
     res.status(500).json(error);
@@ -77,16 +78,16 @@ router.put("/:id", restricted, helper, async (req, res) => {
   } catch (error) {}
 });
 
-router.delete('/:id', helper, async (req, res) => {
+router.delete("/:id", helper, async (req, res) => {
   try {
-    const count = await db('tickets')
+    const count = await db("tickets")
       .where({ id: req.params.id })
       .del();
 
     if (count > 0) {
       res.status(204).end();
     } else {
-      res.status(404).json({ message: 'Records not found' });
+      res.status(404).json({ message: "Records not found" });
     }
   } catch (error) {}
 });

@@ -11,7 +11,7 @@ https://devdesk-queue.herokuapp.com
 
 
 
-### User Database Endpoints 
+## User Database Endpoints 
 
 #### All endpoints require tokens in header. role requirements specified in each endpoint which requires a role.
 
@@ -24,7 +24,7 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
- ### [POST] Register
+ ## [POST] Register
  
  `/api/auth/register` 
 
@@ -39,7 +39,7 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
-### [POST] Login
+## [POST] Login
 
 `/api/auth/login`
 
@@ -52,19 +52,19 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
-### [GET] Users
+## [GET] Users
 
 `/api/users`
 
 **Returns** a list of all registered users  
 
-### [DELETE] Users
+## [DELETE] Users
 
 `api/users/:id`
 
 ### Tickets Database Endpoints 
 
-### [POST] Tickets
+## [POST] Tickets
 
 #### header example 
 
@@ -89,13 +89,13 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
- ### [GET] Tickets
+ ## [GET] Tickets
  
  `/api/tickets/`  
  
  **Returns** a list of all posted help tickets 
 
- ### [PUT] Tickets
+ ## [PUT] Tickets
 
 #### header example 
 
@@ -116,7 +116,7 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
-### [DELETE] Tickets
+## [DELETE] Tickets
 
 #### header example 
 
@@ -130,7 +130,7 @@ https://devdesk-queue.herokuapp.com
 `/api/tickets/:id` 
 
 
-### [POST] Categories
+## [POST] Categories
 
 `/api/categories` 
 
@@ -142,7 +142,7 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
- ### [GET] Categories
+ ## [GET] Categories
  
  `/api/categories`  
  
