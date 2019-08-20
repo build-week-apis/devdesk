@@ -1,28 +1,29 @@
-const db = require('../data/dbConfig.js');
+const db = require("../data/dbConfig.js");
 
 module.exports = {
   add,
   find,
   findBy,
-  findById,
+  findById
 };
 
 function find() {
-  return db('categories').select();
+  return db("categories").select();
 }
 
 function findBy(filter) {
-  return db('categories').where(filter);
+  return db("categories").where(filter);
 }
 
 async function add(cat) {
-  const [id] = await db('categories').insert(cat);
+  const [id] = await db("categories").insert(cat);
 
   return findById(id);
 }
 
 function findById(id) {
-  return db('categories')
+  console.log("fired");
+  return db("categories")
     .where({ id })
     .first();
 }

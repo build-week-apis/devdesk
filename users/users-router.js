@@ -1,9 +1,9 @@
-const router = require('express').Router();
-const db = require('../data/dbConfig');
-const Users = require('./users-model.js');
-const restricted = require('../auth/restricted-middleware.js');
+const router = require("express").Router();
+const db = require("../data/dbConfig");
+const Users = require("./users-model.js");
+const restricted = require("../auth/restricted-middleware.js");
 
-router.get('/', restricted, (req, res) => {
+router.get("/", restricted, (req, res) => {
   Users.find()
     .then(users => {
       res.json(users);
@@ -14,17 +14,19 @@ router.get('/', restricted, (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    let users = await db('users').where('id', id).first();
-    let tickets = await db('tickets').where('student_id', id);
+    let users = await db("users")
+      .where("id", id)
+      .first();
+    let tickets = await db("tickets").where("student_id", id);
     let projAction = {
       id: users.id,
       username: users.username,
       role: users.role,
       created_at: users.created_at
-    }
+    };
     res.status(200).json(projAction);
   } catch (e) {
-    res.status(500).json({error: "error"});
+    res.status(500).json({ error: "error" });
   }
 });
 
@@ -33,10 +35,8 @@ router.put("/:id", restricted, async (req, res) => {
     const count = await db("categories")
       .where({ id: req.params.id })
       .update(req.body.name);
-      
 
     if (count > 0) {
-      console.log(count);
       const category = await Cat.findById(req.params.id);
 
       res.status(200).json(category);
@@ -46,23 +46,25 @@ router.put("/:id", restricted, async (req, res) => {
   } catch (error) {}
 });
 
-router.delete('/:id', restricted, async (req, res) => {
+router.delete("/:id", restricted, async (req, res) => {
   try {
-    const count = await db('users')
+    const count = await db("users")
       .where({ id: req.params.id })
       .del();
 
     if (count > 0) {
       res.status(204).end();
     } else {
-      res.status(404).json({ message: 'Records not found' });
+      res.status(404).json({ message: "Records not found" });
     }
-  } catch (error) {}
+  } catch (error) {
+    res.send("error:", error);
+  }
 });
 
 // router.get('/:id', authorise(['admin'], ':id'),
 //   async ({ params: { id } }, res) => {
-    
+
 //     const [{ password, ...user }] = await Users.get(id);
 //     res.status(200).json(user);
 //   }

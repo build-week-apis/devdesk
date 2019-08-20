@@ -1,34 +1,31 @@
 # bw3-devdesk-queue-backend
+
 Backend for DevDesk Queue
 
 ## Technical Design Document
-[TDD](https://docs.google.com/document/d/1NNdDonJhEtS1wGPb88NQR7Fg2C0gkBwX51sXeloip68/edit#)
 
+[TDD](https://docs.google.com/document/d/1NNdDonJhEtS1wGPb88NQR7Fg2C0gkBwX51sXeloip68/edit#)
 
 https://devdesk-queue.herokuapp.com
 
-
-
-
-
-## User Database Endpoints 
+## User Database Endpoints
 
 #### All endpoints require tokens in header. role requirements specified in each endpoint which requires a role.
 
-#### header example 
+#### header example
 
- ```js 
+```js
 {
-  "Authorization": "token",
-  "role": "student" || "helper"
+ "Authorization": "token",
+ "role": "student" || "helper"
 }
 ```
 
- ## [POST] Register
- 
- `/api/auth/register` 
+## [POST] Register
 
- **Payload:** Expects an object with a username, password and email 
+`/api/auth/register`
+
+**Payload:** Expects an object with a username, password and email
 
 ```js
 {
@@ -45,41 +42,47 @@ https://devdesk-queue.herokuapp.com
 
 **Payload** Expects an object with a username and password, **Returns** a security token
 
-```js 
+```js
 {
     "username": "jay",
     "password": "pass"
 }
 ```
 
-## [GET] Users
+## [GET] All users
 
 `/api/users`
 
-**Returns** a list of all registered users  
+**Returns** a list of all registered users
+
+## [GET] A single user by id
+
+`/api/users:id`
+
+**Returns** the user by id specified on the endpoint
 
 ## [DELETE] Users
 
 `api/users/:id`
 
-### Tickets Database Endpoints 
+### Tickets Database Endpoints
 
 ## [POST] Tickets
 
-#### header example 
+#### header example
 
- ```js 
+```js
 {
-  "Authorization": "token",
-  "role": "student"
+ "Authorization": "token",
+ "role": "student"
 }
 ```
 
-`/api/tickets` 
+`/api/tickets`
 
-**Payload** Expects an object with a status, title, description & student_id (Optional: tried and helper_id) 
+**Payload** Expects an object with a status, title, description & student_id (Optional: tried and helper_id)
 
-```js 
+```js
 {
 	"status": "test status",
 	"title": "test title",
@@ -89,28 +92,28 @@ https://devdesk-queue.herokuapp.com
 }
 ```
 
- ## [GET] Tickets
- 
- `/api/tickets/`  
- 
- **Returns** a list of all posted help tickets 
+## [GET] Tickets
 
- ## [PUT] Tickets
+`/api/tickets/`
 
-#### header example 
+**Returns** a list of all posted help tickets
 
- ```js 
+## [PUT] Tickets
+
+#### header example
+
+```js
 {
-  "Authorization": "token",
-  "role": "helper"
+ "Authorization": "token",
+ "role": "helper"
 }
 ```
 
-`/api/tickets/:id`  
+`/api/tickets/:id`
 
 **Payload** edit the status and helper_id, only open to helpers
 
-```js 
+```js
 {
 	"status": "complete"
 }
@@ -118,47 +121,51 @@ https://devdesk-queue.herokuapp.com
 
 ## [DELETE] Tickets
 
-#### header example 
+#### header example
 
- ```js 
+```js
 {
-  "Authorization": "token",
-  "role": "helper"
+ "Authorization": "token",
+ "role": "helper"
 }
 ```
 
-`/api/tickets/:id` 
-
+`/api/tickets/:id`
 
 ## [POST] Categories
 
-`/api/categories` 
+`/api/categories`
 
 **Payload** Expects an object with a name
 
-```js 
+```js
 {
   "name": "Javascript"
 }
 ```
 
- ## [GET] Categories
- 
- `/api/categories`  
- 
- **Returns** a list of all posted help tickets 
+## [GET] All categories
 
-## [PUT] Categories 
+`/api/categories`
+
+**Returns** a list of all posted help tickets
+
+## [GET] A single category by id
 
 `/api/categories/:id`
 
-```js 
+**Returns** the category by id specified on the endpoint
+
+## [PUT] Categories
+
+`/api/categories/:id`
+
+```js
 {
   "name": "Javascript"
 }
 ```
 
-
-## [DELETE] Categories 
+## [DELETE] Categories
 
 `/api/categories/:id`

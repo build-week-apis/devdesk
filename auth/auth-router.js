@@ -1,14 +1,14 @@
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-const secret = require('../config/secrets.js');
-const Users = require('../users/users-model.js');
+const secret = require("../config/secrets.js");
+const Users = require("../users/users-model.js");
 const Role = require("./roles-model");
-const restricted = require('./restricted-middleware');
+const restricted = require("./restricted-middleware");
 
 // for endpoints beginning with /api/auth
-router.post('/register', (req, res) => {
+router.post("/register", (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
   user.password = hash;
@@ -22,7 +22,7 @@ router.post('/register', (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   let { username, password } = req.body;
 
   Users.findBy({ username })
@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
           token
         });
       } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+        res.status(401).json({ message: "Invalid Credentials" });
       }
     })
     .catch(error => {
@@ -44,7 +44,6 @@ router.post('/login', (req, res) => {
 });
 
 router.post("/roles", restricted, (req, res) => {
-  console.log(req.body);
   Role.add(req.body)
     .then(newRole => {
       res.status(201).json(newRole);
@@ -62,18 +61,17 @@ router.get("/roles", restricted, (req, res) => {
     .catch(err => res.send(err));
 });
 
-
 function generateToken(user) {
   const payload = {
     subject: user.id, // subject in payload is what the token is about
-    username: user.username,
+    username: user.username
     // ...otherData
   };
 
   const options = {
-    expiresIn: '1d'
+    expiresIn: "1d"
   };
-  return jwt.sign(payload, secret.jwtSecret, options)
+  return jwt.sign(payload, secret.jwtSecret, options);
 }
 
 module.exports = router;

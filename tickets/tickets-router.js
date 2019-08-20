@@ -41,10 +41,7 @@ router.post("/", restricted, student, async (req, res) => {
     console.log(req.body.categories);
 
     res.status(200).json({
-      ...tick,
-      category: cat.filter(i => {
-        return i === req.body.categories.map(j => j);
-      })
+      message: "ticket successfully added"
     });
   } catch (error) {
     res.status(500).json(error);

@@ -1,20 +1,20 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const role = require('../auth/permission')
+const role = require("../auth/permission");
 const secret = require("../config/secrets.js");
 const Users = require("../users/users-model.js");
 const Cat = require("./categories-model");
 const restricted = require("../auth/restricted-middleware");
-const db = require('../data/dbConfig.js');
+const db = require("../data/dbConfig.js");
 
 router.post("/", restricted, (req, res) => {
-  console.log(req.body);
   Cat.add(req.body)
     .then(newTicket => {
       res.status(201).json(newTicket);
     })
     .catch(err => {
+      console.log(err);
       res.status(500).json({ error: "failed to add ticket" });
     });
 });
@@ -37,13 +37,17 @@ router.get("/:id", restricted, async (req, res) => {
 });
 
 router.put("/:id", restricted, async (req, res) => {
+  console.log("body:", req.body, "params:", req.params.id);
+  const { id } = req.params;
+  console.log(id);
+
   try {
     const count = await db("categories")
-      .where({ id: req.params.id })
+      .where({ id })
       .update(req.body);
-      
+    console.log(count);
 
-    if (count > 0) {
+    if (count) {
       console.log(count);
       const category = await Cat.findById(req.params.id);
 
@@ -51,19 +55,21 @@ router.put("/:id", restricted, async (req, res) => {
     } else {
       res.status(404).json({ message: "Category not found" });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const count = await db('categories')
+    const count = await db("categories")
       .where({ id: req.params.id })
       .del();
 
     if (count > 0) {
       res.status(204).end();
     } else {
-      res.status(404).json({ message: 'Records not found' });
+      res.status(404).json({ message: "Records not found" });
     }
   } catch (error) {}
 });
